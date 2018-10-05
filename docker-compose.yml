@@ -1,0 +1,62 @@
+Ficheiro mysql.env
+#Passwords de Mysql
+MYSQL_ROOT_PASSWORD=osboxes
+MYSQL_PASSWORD=osboxes
+Ficheiro docker-compose.yaml
+version: '3'
+services:
+bbdd:
+image: mysql
+container_name: bbdd
+env_file:
+- mysql.env
+environment:
+- MYSQL_DATABASE=meiga
+- MYSQL_USER=rafaellg
+ports: ["3306"]
+volumes:
+- "datos-meiga:/var/lib/mysql"
+networks:
+- rede-meiga
+deploy:
+replicas: 1
+restart_policy:
+condition: on-failure
+delay: 10s
+max_attempts: 3window: 120s
+placement:
+constraints: [node.role == manager]
+meiga:
+image: prefapp/docker-meiga:v2
+working_dir: /home/docker-meiga
+command: php -S 0.0.0.0:8000
+depends_on:
+- "bbdd"
+env_file:
+- mysql.env
+environment:
+- DOCENTE=javier
+- USUARIO=javier
+- CURSO=docker
+- MYSQL_HOST=bbdd:3306
+- MYSQL_DATABASE=meiga
+- MYSQL_USER=rafaellg
+ports:
+- "8000:8000"
+networks:
+- rede-meiga
+- rede-publica
+deploy:
+replicas: 3
+restart_policy:
+condition: on-failure
+delay: 10s
+max_attempts: 3
+window: 120s
+placement:
+constraints: [node.role == worker]
+volumes:
+datos-meiga:
+networks:
+rede-meiga:
+rede-publica:
