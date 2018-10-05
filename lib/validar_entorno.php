@@ -4,7 +4,7 @@ function validar_entorno(){
 
     $valido = true;
 
-    if(!isset($_ENV["DOCENTE"])){
+    if(!isset($_ENV["DOCENTE"]) || (!isset($_ENV["USUARIO"]))){
         $valido = false;
     }
 

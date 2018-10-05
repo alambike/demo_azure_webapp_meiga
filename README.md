@@ -1,6 +1,6 @@
 # Docker - Meiga
 
-Proxecto de ensino de tecnoloxías de containers
+Proxecto de ensino de tecnoloxías de containers e webapps
 
 # License
 

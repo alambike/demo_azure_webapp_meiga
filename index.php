@@ -3,18 +3,19 @@
     require("lib/validar_entorno.php");
 
     //validamos entorno
-    if(!validar_entorno()){
-        header("Location: lib/error.php");
-    }
+    // if(!validar_entorno()){
+    //     header("Location: lib/error.php");
+    // }
     
     define("VERSION", "1.0");
+    define("USUARIO", "J.Gomez");
 
     function version(){
         echo VERSION;
     }
 
-    function docente(){
-        echo $_ENV["DOCENTE"];
+    function usuario(){
+        echo USUARIO;
     }
 
 ?>
@@ -52,7 +53,7 @@
                 <div class="col-6">
                 </div>
                 <div class="col-3 align-text-bottom">
-                    <p class="info docente">Docente: <?php docente() ?></p>
+                    <p class="info docente">Usuario: <?php usuario() ?></p>
                 </div>
             </div>
 
